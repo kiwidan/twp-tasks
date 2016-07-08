@@ -33,10 +33,7 @@ var Kanban = React.createClass({
                 ));
 
                 this.setState({ tasklists });
-            }.bind(this),
-            error: function() {
-                // Handle error
-            }
+            }.bind(this)
         });
     },
 

@@ -4,7 +4,9 @@ import Task from './task';
 var Board = React.createClass({
     getInitialState: function() {
         return {
-            tasks: []
+            tasks: [],
+            loading: true,
+            error: false
         }
     },
 
@@ -17,6 +19,8 @@ var Board = React.createClass({
     },
 
     fetchTasks: function(tasklistId) {
+        var reactClass = this;
+
         $.ajax({
             url: 'https://' + env.company + '.teamwork.com/tasklists/' + tasklistId + '/tasks.json',
             headers: {"Authorization": "BASIC " + window.btoa(env.key + ":xxx")},
@@ -34,13 +38,38 @@ var Board = React.createClass({
 
                 this.setState({ tasks });
             }.bind(this),
-            error: function() {
-                // Handle error
-            }
+            error: function(data) {
+                this.setState({ error: true });
+            }.bind(this)
+        }).always(function() {
+            reactClass.setState({ loading: false });
         });
     },
 
+    countTasks: function() {
+        if (this.state.tasks.length == 0) {
+            return 'No tasks';
+        } else if (this.state.tasks.length == 1) {
+            return '1 task';
+        } else {
+            return this.state.tasks.length + ' tasks';
+        }
+    },
+
     render: function() {
+        var footerText = '';
+        var footerClasses = 'board-footer';
+        
+        if (this.state.error) {
+            footerText = 'Error!';
+            footerClasses += ' error';
+        } else if (this.state.loading) {
+            footerText = 'Loading...';
+            footerClasses += ' loading';
+        } else {
+            footerText = this.countTasks();
+        }
+
         return (
             <div className="board">
                 <h2>{this.props.boardName}</h2>
@@ -49,8 +78,8 @@ var Board = React.createClass({
                     {this.state.tasks.map((task, i) => <Task key={i} name={task.name} />)}
                 </ul>
 
-                <div className="task-count">
-                    {this.state.tasks.length > 0 ? this.state.tasks.length : 'No'} tasks
+                <div className={footerClasses}>
+                    {footerText}
                 </div>
 
             </div>
