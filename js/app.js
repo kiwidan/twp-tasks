@@ -1,3 +1,3 @@
-import TaskList from './components/TaskList';
+import Kanban from './components/Kanban';
 
-React.render(<TaskList />, document.querySelector('#app'));
+React.render(<Kanban />, document.querySelector('#app'));
