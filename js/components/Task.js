@@ -41,13 +41,17 @@ var Task = React.createClass({
 
     render: function() {
         return (
-            <li className="task">
+            <li 
+                className="task"
+                onClick={this.onChange}>
                 <input
                     onChange={this.onChange}
                     type="checkbox"
                     checked={this.state.completed} />
 
-                {this.props.name}
+                <span className="task-title">
+                    {this.props.name}
+                </span>
             </li>
         );
     }
