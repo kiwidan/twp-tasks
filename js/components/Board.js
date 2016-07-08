@@ -22,17 +22,17 @@ var Board = React.createClass({
         var reactClass = this;
 
         $.ajax({
-            url: 'https://' + env.company + '.teamwork.com/tasklists/' + tasklistId + '/tasks.json',
+            url: 'https://' + env.company + '.teamwork.com/tasklists/' + tasklistId + '/tasks.json?includeCompletedTasks=true',
             headers: {"Authorization": "BASIC " + window.btoa(env.key + ":xxx")},
             success: function(data) {
                 var tasks = [];
-
                 data = data['todo-items'];
                 
                 data.map(task => tasks.push(
                     {
                         id: task.id,
-                        name: task.content
+                        name: task.content,
+                        completed: task.completed
                     }
                 ));
 
@@ -75,7 +75,13 @@ var Board = React.createClass({
                 <h2>{this.props.boardName}</h2>
 
                 <ul className={this.state.tasks.length == 0 ? 'task-list hidden' : 'task-list'}>
-                    {this.state.tasks.map((task, i) => <Task key={i} name={task.name} />)}
+                    {this.state.tasks.map((task, i) => 
+                        <Task
+                            key={i}
+                            id={task.id}
+                            completed={task.completed}
+                            name={task.name} />)
+                    }
                 </ul>
 
                 <div className={footerClasses}>

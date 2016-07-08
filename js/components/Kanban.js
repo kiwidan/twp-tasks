@@ -19,7 +19,7 @@ var Kanban = React.createClass({
 
     fetchTasklists: function() {
         $.ajax({
-            url: 'https://' + env.company + '.teamwork.com/projects/' + env.projectId + '/tasklists.json',
+            url: 'https://' + env.company + '.teamwork.com/projects/' + env.projectId + '/tasklists.json?status=all',
             headers: {"Authorization": "BASIC " + window.btoa(env.key + ":xxx")},
             success: function(data) {
                 var tasklists = [];
