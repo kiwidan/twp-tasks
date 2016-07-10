@@ -1,8 +1,12 @@
 # Teamwork Project Tasks Demo
 
-I have recently decided to learn a bit of React. I have also recently started using Teamwork Project (it is awesome). So I thought I would explore the Teamwork Project API and do so with a bit of React.
+I have recently decided to learn a bit of React (it is awesome). I have also recently started using Teamwork Project (it is also awesome). So I thought I would explore the Teamwork Project API and do so with a bit of React.
 
-I'm not 100% sure what I will end up making, but it's a good excuse to spend some time with React and the Teamwork Project API.
+At the moment all this app does is retrieve tasklists and tasks from Teamwork Project and allow you to check/uncheck tasks.
+
+NOTE: this is a very old version of react (0.13.1), but it's not really that different from the current version (as of July '16).
+
+![alt tag](https://paddymoran.nz/themes/paddymorannz/assets/images/twp-tasks.png)
 
 # Setup
 
