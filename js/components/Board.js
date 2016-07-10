@@ -19,8 +19,6 @@ var Board = React.createClass({
     },
 
     fetchTasks: function(tasklistId) {
-        var reactClass = this;
-
         $.ajax({
             url: 'https://' + env.company + '.teamwork.com/tasklists/' + tasklistId + '/tasks.json?includeCompletedTasks=true',
             headers: {"Authorization": "BASIC " + window.btoa(env.key + ":xxx")},
@@ -41,8 +39,8 @@ var Board = React.createClass({
             error: function(data) {
                 this.setState({ error: true });
             }.bind(this)
-        }).always(function() {
-            reactClass.setState({ loading: false });
+        }).always(() => {
+            this.setState({ loading: false });
         });
     },
 
@@ -80,14 +78,13 @@ var Board = React.createClass({
                             key={i}
                             id={task.id}
                             completed={task.completed}
-                            name={task.name} />)
-                    }
+                            name={task.name} />
+                    )}
                 </ul>
 
                 <div className={footerClasses}>
                     {footerText}
                 </div>
-
             </div>
         );
     }

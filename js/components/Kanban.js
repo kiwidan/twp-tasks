@@ -5,7 +5,9 @@ var Kanban = React.createClass({
 
     getInitialState: function() {
         return {
-            tasklists: []
+            tasklists: [],
+            loading: true,
+            error: false
         };
     },
 
@@ -33,23 +35,39 @@ var Kanban = React.createClass({
                 ));
 
                 this.setState({ tasklists });
+            }.bind(this),
+            error: function(data) {
+                this.setState({ error: true });
             }.bind(this)
+        }).always(() => {
+            this.setState({ loading: false });
         });
     },
 
     render: function() {
-        var createBoard = function(task) {
-            return (
-                <Board
-                    key={task.id}
-                    tasklistId={task.id}
-                    boardName={task.name} />
-            );
-        };
+        var pageMessage = '';
+        var messageClasses = 'page-message';
 
+        if (this.state.loading) {
+            pageMessage = 'Loading...'
+        } else if (this.state.error) {
+            pageMessage = 'Error! There was an issue retrieving tasks.';
+            messageClasses += ' error';
+        } else {
+            // No message, so let's hide the message panel
+            messageClasses += ' hidden';
+        }
+        
         return (
             <div className="kanban">
-                {this.state.tasklists.map(createBoard)}
+                <div className={messageClasses}>{pageMessage}</div>
+
+                {this.state.tasklists.map((tasklist, i) =>
+                    <Board
+                        key={tasklist.id}
+                        tasklistId={tasklist.id}
+                        boardName={tasklist.name} />
+                )}
             </div>
         );
     }
