@@ -1,5 +1,5 @@
 import env from '../../env';
-import Task from './task';
+import Task from './Task';
 
 var Board = React.createClass({
     getInitialState: function() {
