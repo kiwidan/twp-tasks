@@ -6,7 +6,7 @@ At the moment all this app does is retrieve tasklists and tasks from Teamwork Pr
 
 NOTE: this is a very old version of react (0.13.1), but it's not really that different from the current version (as of July '16).
 
-![alt tag](https://assets.paddymoran.nz/twp/twp-tasks.png)
+![alt tag](https://raw.githubusercontent.com/paddymoran/twp-tasks/master/docs/twp-tasks.png)
 
 # Setup
 
